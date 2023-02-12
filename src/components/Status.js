@@ -1,6 +1,27 @@
 import React from 'react'
-
+import StatusAdmin from './StatusAdmin';
+import StatusDeclined from './StatusDeclined';
+import { useState, useEffect } from 'react';
 function Status() {
+    const [jsonApprovedData, setJsonApprovedData] = useState([]);
+    const [jsonDeclinedData, setJsonDeclinedData] = useState([]);
+    async function getApprovedData() {
+        let res = await fetch("http://localhost:5000/api/admin/approved");
+        let data = await res.json();
+        console.table(data);
+        setJsonApprovedData(data);
+    }
+    async function getDeclinedData() {
+        let res = await fetch("http://localhost:5000/api/admin/declined");
+        let data = await res.json();
+        console.table(data);
+        setJsonDeclinedData(data);
+    }
+    useEffect(() => {
+        getApprovedData();
+        getDeclinedData();
+        console.log("Page load empty dependancy array");
+    }, []); 
     return (
         <>
             <div className="container-filud">
@@ -20,87 +41,23 @@ function Status() {
                                 <li className="nav-item">
                                     <a className="nav-link active" aria-current="page" href="#">Know status</a>
                                 </li>
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <a className="nav-link active" aria-current="page" href="#">Past Events</a>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
-            <div className="row mx-lg-5">
-                <div className="col-lg-3">
-                    <div className="card my-3 mx-sm-3" style={{width: "18rem"}}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event 1</li>
-                            <li className="list-group-item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aut
-                                molestiae impedit eum perferendis incidunt nihil, temporibus dolorum quo minus? Delectus
-                                totam
-                                voluptas ab recusandae?</li>
-                            <li className="list-group-item">Status: Declined</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="col-lg-3">
-                    <div className="card my-3" style={{width: "18rem"}}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event 2</li>
-                            <li className="list-group-item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aut
-                                molestiae impedit eum perferendis incidunt nihil, temporibus dolorum quo minus? Delectus
-                                totam
-                                voluptas ab recusandae?</li>
-                            <li className="list-group-item">Status: Approved</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="col-lg-3">
-                    <div className="card my-3" style={{width: "18rem"}}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event 3</li>
-                            <li className="list-group-item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aut
-                                molestiae impedit eum perferendis incidunt nihil, temporibus dolorum quo minus? Delectus
-                                totam
-                                voluptas ab recusandae?</li>
-                            <li className="list-group-item">Status: Declined</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="col-lg-3">
-                    <div className="card my-3" style={{width: "18rem"}}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event 4</li>
-                            <li className="list-group-item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aut
-                                molestiae impedit eum perferendis incidunt nihil, temporibus dolorum quo minus? Delectus
-                                totam
-                                voluptas ab recusandae?</li>
-                            <li className="list-group-item">Status: Declined</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="col-lg-3">
-                    <div className="card my-3" style={{width: "18rem"}}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event 5</li>
-                            <li className="list-group-item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aut
-                                molestiae impedit eum perferendis incidunt nihil, temporibus dolorum quo minus? Delectus
-                                totam
-                                voluptas ab recusandae?</li>
-                            <li className="list-group-item">Status: Declined</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="col-lg-3">
-                    <div className="card my-3" style={{width: "18rem"}}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Event 6</li>
-                            <li className="list-group-item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aut
-                                molestiae impedit eum perferendis incidunt nihil, temporibus dolorum quo minus? Delectus
-                                totam
-                                voluptas ab recusandae?</li>
-                            <li className="list-group-item">Status: Approved</li>
-                        </ul>
-                    </div>
-                </div>
+            <div className="container-fluid my-3">
+                {jsonApprovedData.map((ele) => {
+                    return <StatusAdmin key={ele._id} ele={ele}/>
+                })}
+            </div>
+            <div className="container-fluid my-3">
+                {jsonDeclinedData.map((ele) => {
+                    return <StatusDeclined key={ele._id} ele={ele}/>
+                })}
             </div>
         </>
     )

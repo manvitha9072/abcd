@@ -20,9 +20,9 @@ function Past() {
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="#">Know status</a>
                                 </li>
-                                <li class="nav-item">
+                                {/* <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="#">Past Events</a>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>

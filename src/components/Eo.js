@@ -4,7 +4,7 @@ function Eo() {
     //use state returns array with 2 value, 1st one being count and the 2nd being a function to update the state
     const [jsonData, setJsonData] = useState([]);
     async function getData() {
-        let res = await fetch("http://localhost:5000/api/admin/approved");
+        let res = await fetch("http://localhost:5000/api/admin/form");
         let data = await res.json();
         console.table(data);
         setJsonData(data);
@@ -16,7 +16,7 @@ function Eo() {
 
     return (
         <div>
-            <div className="container-filud">
+            <div className="container-fluid">
                 <nav className="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
                     <div className="container-fluid">
                         <a href="#" className="navbar-brand">University Event Management</a>
@@ -37,7 +37,7 @@ function Eo() {
                     </div>
                 </nav>
             </div>
-            <div className="container-fluid">
+            <div className="container-fluid my-3">
                 {jsonData.map((ele) => {
                     return <Cards key={ele._id} num={ele}/>
                 })}

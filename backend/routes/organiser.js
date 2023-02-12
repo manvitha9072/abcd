@@ -1,13 +1,15 @@
 const express = require("express");
 const Aform = require("../models/Aform.js");
 const router = express.Router();
-router.get("/approved", async (req, res) => {
-    try {
-      const getData = await Aform.find({ approved: true });
-      console.log(getData);
-      res.json([...getData]);
-    } catch (err) {
-      res.json([]);
-    }
-  });
-  module.exports=router;
+router.post("/approvals", async (req, res) => {
+  try {
+    const data = req.body;
+    console.log(data);
+    let d = await Aform.updateOne({ _id: data.id }, { approved: data.st });
+    res.json({ data: d, success: true });
+  } catch (error) {
+    console.log("Error");
+    res.json({ error, success: false });
+  }
+});
+module.exports = router;
