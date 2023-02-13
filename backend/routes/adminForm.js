@@ -8,7 +8,7 @@ router.post("/form", async (req, res) => {
     Aform.create(data);
     res.json({ success: true });
   } catch {
-    res.json({ success: false });
+    res.json({ success: false }); 
   }
 });
 router.get("/form", async (req, res) => {
@@ -39,10 +39,10 @@ router.get("/declined", async (req, res) => {
     res.json([]);
   }
 });
-router.post("/status", async (req, res) => {
-  console.log(req.body);
-  const getData = await Aform.find({ name: req.body.n });
-  console.log(getData);
-  res.json(getData[0].approved);
-});
+// router.post("/status", async (req, res) => {
+//   console.log(req.body);
+//   const getData = await Aform.find({ name: req.body.n });
+//   console.log(getData);
+//   res.json(getData[0].approved);
+// });
 module.exports=router;

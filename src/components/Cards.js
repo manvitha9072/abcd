@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 function Cards(props) {
-  // const name = props.name;
-  // const supporttxt = props.supporttxt;
-  // const txt = props.txt;
   const handleOnClick = async (e, i) => {
     console.log(i);
     let res = await fetch("http://localhost:5000/api/organiser/approvals", {
